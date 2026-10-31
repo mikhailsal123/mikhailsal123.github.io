@@ -12,6 +12,7 @@
   --background: #fffefa;
   --text: #30302e;
   --link: #2b5c80;
+  --rule: #c9c5ba;
 }
 
 * { box-sizing: border-box; }
@@ -81,7 +82,11 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 4px; }
   border-radius: 50%;
 }
 
-.research { margin-top: 58px; }
+.research {
+  margin-top: 48px;
+  padding-top: 40px;
+  border-top: 1px solid var(--rule);
+}
 
 h2 {
   margin-bottom: 24px;
@@ -136,7 +141,7 @@ article p { max-width: 650px; }
   .bio > p { grid-column: 1 / -1; max-width: none; }
   .bio > p:not(.links) { grid-row: 2; }
   .links { grid-row: 3; margin-top: -0.5rem; }
-  .research { margin-top: 2.5rem; }
+  .research { margin-top: 2rem; padding-top: 2rem; }
 }
 
 @media (hover: none) and (pointer: coarse) {
