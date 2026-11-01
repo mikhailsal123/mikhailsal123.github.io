@@ -6,6 +6,8 @@
   <meta name="description" content="Mikhail Saleev. Notre Dame undergraduate researching machine learning for integrated sensing and communication and chemical reaction prediction.">
   <meta name="theme-color" content="#fffefa">
   <title>Mikhail Saleev</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/globe-icon.png?v=globe">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=globe">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -20,19 +22,30 @@
       <img class="portrait" src="assets/photo.jpg" alt="Mikhail Saleev" width="300" height="300">
     </header>
 
-    <section class="research" aria-labelledby="research-heading">
+    <section class="research research-gallery" aria-labelledby="research-heading">
       <h2 id="research-heading">Research</h2>
-      <article>
-        <h3>AI for Remote Sensing</h3>
-        <p>I develop neural net-based approaches to localization and environmental mapping from acoustic and radio-frequency signals, with applications in integrated sensing and communications. </p>
+      <article class="research-with-visual research-acoustic">
+        <figure class="research-visual">
+          <button class="animation-toggle" type="button" data-animation-name="acoustic mapping" aria-label="Enlarge acoustic mapping figure" aria-haspopup="dialog" aria-controls="image-dialog">
+            <img src="assets/neurocotans-layout-still.png" data-animation="assets/neurocotans-layout.gif" alt="Underwater scene with four walls, one transmitter, and five receivers, alongside a COTANS image and estimated wall locations" width="1000" height="636" loading="lazy">
+          </button>
+          <figcaption>Acoustic Boundary Localization with U-COTANS.</figcaption>
+        </figure>
+        <div>
+          <h3>AI for Remote Sensing</h3>
+          <p>I develop neural net-based approaches to localization and environmental mapping from acoustic and radio-frequency signals, with applications in integrated sensing and communications.</p>
         <ul class="papers">
           <li><strong>Deep Learning Estimation of the Number and Locations of Surfaces for Underwater ISAC</strong><span class="paper-authors">Yiwen Lu, <strong>Mikhail Saleev</strong>, Yitong Luo, Allison Sproul, Rene Alzina, Toros Arikan</span><span class="paper-status">(Under review)</span></li>
           <li><strong>Ultra-Wideband Indoor Localization and Bistatic Deep Learning-Based Mapping for ISAC</strong><span class="paper-authors">Yiwen Lu, <strong>Mikhail Saleev</strong>, Toros Arikan</span><span class="paper-status">(Under review)</span></li>
         </ul>
+        </div>
+
       </article>
       <article class="research-with-visual">
         <figure class="research-visual">
-          <a href="https://github.com/mikhailsal123/LatentRxnFlow"><img src="assets/latentrxnflow.gif" alt="Molecular structures decoded at successive steps along a learned latent flow trajectory" width="727" height="579" loading="lazy"></a>
+          <button class="animation-toggle" type="button" aria-label="Enlarge reaction figure" aria-haspopup="dialog" aria-controls="image-dialog">
+            <img src="assets/latentrxnflow-layout-still.png" data-animation="assets/latentrxnflow-layout.gif" alt="Molecular structures decoded along a learned latent flow trajectory" width="1000" height="636" loading="lazy">
+          </button>
           <figcaption>Decoded structures along a latent flow trajectory.</figcaption>
         </figure>
         <div>
@@ -49,5 +62,40 @@
       </article>
     </section>
   </main>
+  <dialog id="image-dialog" class="image-dialog" aria-labelledby="image-dialog-caption">
+    <button class="image-dialog-close" type="button" aria-label="Close enlarged image"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    <img alt="">
+    <p id="image-dialog-caption"></p>
+  </dialog>
+  <script>
+    const imageDialog = document.querySelector('#image-dialog');
+    const enlargedImage = imageDialog.querySelector('img');
+    const enlargedCaption = imageDialog.querySelector('p');
+    document.querySelectorAll('.research-visual .animation-toggle').forEach(button => {
+      const image = button.querySelector('img');
+      const still = image.getAttribute('src');
+      const animation = image.dataset.animation;
+      button.addEventListener('pointerenter', event => {
+        if (event.pointerType === 'mouse') image.src = animation;
+      });
+      button.addEventListener('pointerleave', event => {
+        if (event.pointerType === 'mouse') image.src = still;
+      });
+      button.addEventListener('blur', () => { image.src = still; });
+      button.addEventListener('click', () => {
+        enlargedImage.src = animation;
+        enlargedImage.alt = image.alt;
+        enlargedImage.width = image.naturalWidth;
+        enlargedImage.height = image.naturalHeight;
+        enlargedCaption.textContent = button.closest('figure').querySelector('figcaption').textContent;
+        imageDialog.showModal();
+      });
+    });
+    imageDialog.querySelector('.image-dialog-close').addEventListener('click', () => imageDialog.close());
+    imageDialog.addEventListener('click', event => {
+      if (event.target === imageDialog) imageDialog.close();
+    });
+    imageDialog.addEventListener('close', () => enlargedImage.removeAttribute('src'));
+  </script>
 </body>
 </html>

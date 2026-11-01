@@ -11,12 +11,17 @@ css = (root / 'styles.css').read_text()
 html = html.replace('<link rel="stylesheet" href="styles.css">', '<style>\n' + css + '\n</style>')
 
 def embed_image(match):
-    path = root / match.group(1)
+    attribute, filename = match.groups()
+    path = root / filename
     mime = mimetypes.guess_type(path.name)[0] or 'application/octet-stream'
-    return 'src="data:' + mime + ';base64,' + b64encode(path.read_bytes()).decode() + '"'
+    return attribute + '="data:' + mime + ';base64,' + b64encode(path.read_bytes()).decode() + '"'
 
-html = re.sub(r'src="(assets/[^\"]+)"', embed_image, html)
+html = re.sub(r'(src|data-animation)="(assets/[^\"]+)"', embed_image, html)
 (root / 'dist').mkdir(exist_ok=True)
+copyfile(root / 'favicon.ico', root / 'dist' / 'favicon.ico')
+copyfile(root / 'apple-touch-icon.png', root / 'dist' / 'apple-touch-icon.png')
+(root / 'dist' / 'assets').mkdir(exist_ok=True)
+copyfile(root / 'assets' / 'globe-icon.png', root / 'dist' / 'assets' / 'globe-icon.png')
 (root / 'dist' / 'index.html').write_text(html)
 copyfile(root / 'cv.pdf', root / 'dist' / 'cv.pdf')
 print('Built dist/index.html and copied dist/cv.pdf')

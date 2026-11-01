@@ -42,8 +42,8 @@ body {
 }
 
 .page {
-  width: calc(100% - 48px + 30pt);
-  max-width: calc(45.5rem + 30pt);
+  width: calc(100% - 28px + 30pt);
+  max-width: calc(45.5rem + 30pt + 20px);
   margin: clamp(2.5rem, 8vw, 5rem) auto 6.25rem;
 }
 
@@ -120,15 +120,33 @@ h3 {
 }
 
 article p { max-width: 650px; }
+.research-gallery {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1000px, calc(100vw - 40px));
+}
 .research-with-visual {
   display: grid;
-  grid-template-columns: 240px minmax(0, 1fr);
-  gap: 24px;
+  grid-template-columns: minmax(0, 440px) minmax(0, 1fr);
+  gap: 28px;
   align-items: start;
 }
-.research-visual { margin: 0; }
+.research-visual { margin: 0; width: 100%; min-width: 0; }
+.research-visual figcaption { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 2.7em; margin-top: 6px; font-size: 0.8rem; line-height: 1.35; text-align: center; }
+.research-visual .animation-toggle { overflow: hidden; }
 .research-visual img { display: block; width: 100%; height: auto; }
-.research-visual figcaption { margin-top: 6px; font-size: 0.8rem; line-height: 1.35; }
+.animation-toggle { display: block; width: 100%; padding: 0; border: 0; background: transparent; cursor: zoom-in; }
+.animation-toggle:focus-visible { outline: 2px solid var(--link); outline-offset: 4px; }
+.image-dialog { width: fit-content; max-width: calc(100vw - 24px); max-height: calc(100dvh - 24px); padding: 40px 16px 16px; border: 0; border-radius: 14px; background: var(--background); color: var(--text); }
+.image-dialog::backdrop { background: rgb(0 0 0 / 65%); }
+.image-dialog img { display: block; width: auto; height: auto; max-width: calc(100vw - 56px); max-height: calc(100dvh - 130px); border-radius: 6px; object-fit: contain; }
+.image-dialog p { margin-top: 12px; font-size: 0.875rem; text-align: center; }
+.image-dialog-close { position: absolute; top: 3px; right: 6px; display: grid; place-items: center; width: 32px; height: 32px; padding: 0; border: 0; border-radius: 50%; appearance: none; outline: none; box-shadow: none; background: transparent; color: var(--text); line-height: 1; cursor: pointer; transition: background-color 150ms ease, transform 150ms ease; }
+.image-dialog-close svg { display: block; }
+.image-dialog-close:focus-visible { outline: none; background: transparent; box-shadow: none; }
+.image-dialog-close:hover { background: #eeece5; }
+.image-dialog-close:active { transform: scale(0.92); }
 .papers { margin: 14px 0 0; padding-left: 1.25rem; }
 .papers li + li { margin-top: 8px; }
 .paper-authors { display: block; margin-top: 4px; }
@@ -145,7 +163,7 @@ article p { max-width: 650px; }
 
 /* Tablet spacing is independent of the wider desktop page. */
 @media (min-width: 35.001rem) and (max-width: 52rem) {
-  .page { width: calc(100% - 48px); }
+  .page { width: calc(100% - 28px); }
   .profile { grid-template-columns: minmax(0, 1fr) 220px; column-gap: 32px; }
   .portrait { width: 220px; height: 220px; }
 }
@@ -154,7 +172,7 @@ article p { max-width: 650px; }
 @media (max-width: 35rem) {
   body { font-size: 1rem; line-height: 1.4; }
   .page {
-    width: calc(100% - 40px);
+    width: calc(100% - 20px);
     max-width: 30rem;
     margin: 32px auto 48px;
   }
@@ -192,11 +210,15 @@ article p { max-width: 650px; }
   .research { margin-top: 28px; padding-top: 24px; }
   h2 { margin-bottom: 20px; }
   article + article { margin-top: 28px; }
-  .research-with-visual { grid-template-columns: minmax(0, 1fr); gap: 16px; }
-  .research-visual { width: min(100%, 280px); justify-self: center; }
   .papers { margin-top: 16px; padding-left: 1.125rem; }
   .papers li + li { margin-top: 16px; }
   .paper-status { display: block; margin-top: 3px; }
+}
+
+@media (max-width: 48rem) {
+  .research-gallery { width: 100%; }
+  .research-with-visual { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .research-visual { max-width: 440px; justify-self: center; }
 }
 
 @media (hover: none) and (pointer: coarse) {
