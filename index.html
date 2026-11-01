@@ -106,6 +106,9 @@ h3 {
 }
 
 article p { max-width: 650px; }
+.papers { margin: 14px 0 0; padding-left: 1.25rem; }
+.papers li + li { margin-top: 8px; }
+.paper-status { font-style: italic; }
 
 .skip-link {
   position: absolute;
@@ -173,18 +176,14 @@ article p { max-width: 650px; }
       <article>
         <h3>NeuroCOTANS</h3>
         <p>Neural boundary estimation from signals. My work includes curve separation, SAGE peak localization, and generating polar COTANS images.</p>
+        <ul class="papers">
+          <li>Deep Learning Estimation of the Number and Locations of Surfaces for Underwater ISAC <span class="paper-status">(in review)</span></li>
+          <li>Ultra-Wideband Indoor Localization and Bistatic Deep Learning-Based Mapping for ISAC <span class="paper-status">(in review)</span></li>
+        </ul>
       </article>
       <article>
         <h3><a href="https://github.com/mikhailsal123/LatentRxnFlow">LatentRxnFlow</a></h3>
         <p>Latent flow matching for chemical reaction prediction, with training and evaluation built on the NERF codebase.</p>
-      </article>
-      <article>
-        <h3>Deep Learning Estimation of the Number and Locations of Surfaces for Underwater ISAC</h3>
-        <p>in review</p>
-      </article>
-      <article>
-        <h3>Ultra-Wideband Indoor Localization and Bistatic Deep Learning-Based Mapping for ISAC</h3>
-        <p>in review</p>
       </article>
     </section>
   </main>
