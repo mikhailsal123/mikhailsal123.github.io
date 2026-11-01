@@ -120,6 +120,15 @@ h3 {
 }
 
 article p { max-width: 650px; }
+.research-with-visual {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.research-visual { margin: 0; }
+.research-visual img { display: block; width: 100%; height: auto; }
+.research-visual figcaption { margin-top: 6px; font-size: 0.8rem; line-height: 1.35; }
 .papers { margin: 14px 0 0; padding-left: 1.25rem; }
 .papers li + li { margin-top: 8px; }
 .paper-authors { display: block; margin-top: 4px; }
@@ -183,6 +192,8 @@ article p { max-width: 650px; }
   .research { margin-top: 28px; padding-top: 24px; }
   h2 { margin-bottom: 20px; }
   article + article { margin-top: 28px; }
+  .research-with-visual { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .research-visual { width: min(100%, 280px); justify-self: center; }
   .papers { margin-top: 16px; padding-left: 1.125rem; }
   .papers li + li { margin-top: 16px; }
   .paper-status { display: block; margin-top: 3px; }
