@@ -4,11 +4,17 @@ from base64 import b64encode
 from shutil import copyfile
 import mimetypes
 import re
+from hashlib import sha256
 
 root = Path(__file__).parent
-html = (root / 'index.html').read_text()
+source_html = (root / 'index.html').read_text()
 css = (root / 'styles.css').read_text()
-html = html.replace('<link rel="stylesheet" href="styles.css">', '<style>\n' + css + '\n</style>')
+css_version = sha256(css.encode()).hexdigest()[:12]
+stylesheet_link = f'<link rel="stylesheet" href="styles.css?v={css_version}">'
+html = re.sub(r'<link rel="stylesheet" href="styles\.css(?:\?[^\"]*)?">', stylesheet_link, source_html)
+if html != source_html:
+    (root / 'index.html').write_text(html)
+html = html.replace(stylesheet_link, '<style>\n' + css + '\n</style>')
 
 def embed_image(match):
     attribute, filename = match.groups()
