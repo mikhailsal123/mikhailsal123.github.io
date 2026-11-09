@@ -67,6 +67,7 @@ h1 {
 }
 
 .bio > p:not(.links) { text-align: left; text-wrap: pretty; }
+.bio > p + p:not(.links) { margin-top: 0.75rem; }
 .links {
   display: flex;
   flex-wrap: wrap;
@@ -195,9 +196,10 @@ article p { max-width: 650px; }
     text-align: center;
   }
   .bio > p { grid-column: 1; max-width: none; }
-  .bio > p:not(.links) { grid-row: 3; }
+  .bio > p:first-of-type { grid-row: 3; }
+  .bio > p:nth-of-type(2) { grid-row: 4; }
   .links {
-    grid-row: 4;
+    grid-row: 5;
     justify-content: center;
     column-gap: 10px;
     margin-top: 12px;
